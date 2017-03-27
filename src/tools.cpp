@@ -81,3 +81,12 @@ VectorXd Tools::ConvertPolarToCartesian(const Eigen::VectorXd& measurements) {
   cartesian << p * cos_phi, p * sin_phi, v * cos_phi, v * sin_phi;
   return cartesian;
 }
+
+VectorXd Tools::ConvertCartesianToPolar(const Eigen::VectorXd& x) {
+  VectorXd polar = VectorXd(3);
+  float c1 = sqrt(pow(x[0], 2) + pow(x[1], 2));
+  if (c1 > 0) {
+    polar << c1, atan2(x[1], x[0]), (x[0]*x[2] + x[1]*x[3])/c1;
+  }
+  return polar;
+}

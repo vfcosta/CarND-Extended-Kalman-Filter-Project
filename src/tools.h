@@ -30,6 +30,11 @@ public:
   */
   Eigen::VectorXd ConvertPolarToCartesian(const Eigen::VectorXd& measurements);
 
+  /**
+  * A helper method to convert cartesian to polar.
+  */
+  Eigen::VectorXd ConvertCartesianToPolar(const Eigen::VectorXd& x);
+
 };
 
 #endif /* TOOLS_H_ */
