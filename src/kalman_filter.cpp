@@ -25,25 +25,16 @@ void KalmanFilter::Predict() {
 }
 
 void KalmanFilter::Update(const VectorXd &z) {
-  VectorXd z_pred = H_ * x_;
-  VectorXd y = z - z_pred;
-  MatrixXd Ht = H_.transpose();
-  MatrixXd S = H_ * P_ * Ht + R_;
-  MatrixXd Si = S.inverse();
-  MatrixXd PHt = P_ * Ht;
-  MatrixXd K = PHt * Si;
-
-  //new estimate
-  x_ = x_ + (K * y);
-  long x_size = x_.size();
-  MatrixXd I = MatrixXd::Identity(x_size, x_size);
-  P_ = (I - K * H_) * P_;
+  MeasurementUpdate(z - H_ * x_);
 }
 
 void KalmanFilter::UpdateEKF(const VectorXd &z) {
   // update the state by using Extended Kalman Filter equations
-  VectorXd z_pred = tools.ConvertCartesianToPolar(x_);
-  VectorXd y = z - z_pred;
+  MeasurementUpdate(z - tools.ConvertCartesianToPolar(x_));
+}
+
+void KalmanFilter::MeasurementUpdate(const VectorXd &y) {
+  // Common method for measurement update used in regular kalman filter and EKF
   MatrixXd Ht = H_.transpose();
   MatrixXd S = H_ * P_ * Ht + R_;
   MatrixXd Si = S.inverse();

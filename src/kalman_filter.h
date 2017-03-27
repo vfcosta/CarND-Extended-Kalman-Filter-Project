@@ -68,6 +68,7 @@ public:
 private:
   Tools tools;
 
+  void MeasurementUpdate(const Eigen::VectorXd &y);
 };
 
 #endif /* KALMAN_FILTER_H_ */
