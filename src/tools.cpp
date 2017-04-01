@@ -45,7 +45,7 @@ VectorXd Tools::CalculateRMSE(const vector<VectorXd> &estimations,
 
 MatrixXd Tools::CalculateJacobian(const VectorXd& x_state) {
 
-  MatrixXd Hj(3,4);
+  MatrixXd Hj = MatrixXd::Zero(3,4);
   //recover state parameters
   float px = x_state(0);
   float py = x_state(1);
@@ -83,7 +83,7 @@ VectorXd Tools::ConvertPolarToCartesian(const Eigen::VectorXd& measurements) {
 }
 
 VectorXd Tools::ConvertCartesianToPolar(const Eigen::VectorXd& x) {
-  VectorXd polar = VectorXd(3);
+  VectorXd polar = VectorXd::Zero(3);
   float c1 = sqrt(pow(x[0], 2) + pow(x[1], 2));
   if (c1 > epsilon) {
     polar << c1, atan2(x[1], x[0]), (x[0]*x[2] + x[1]*x[3])/c1;
