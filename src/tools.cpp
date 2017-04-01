@@ -58,7 +58,7 @@ MatrixXd Tools::CalculateJacobian(const VectorXd& x_state) {
   float c3 = (c1*c2);
 
   //check division by zero
-  if(fabs(c1) < 0.0001){
+  if(fabs(c1) < epsilon){
     cout << "CalculateJacobian () - Error - Division by Zero. Returning an empty jacobian matrix" << endl;
     return Hj;
   }
@@ -85,7 +85,7 @@ VectorXd Tools::ConvertPolarToCartesian(const Eigen::VectorXd& measurements) {
 VectorXd Tools::ConvertCartesianToPolar(const Eigen::VectorXd& x) {
   VectorXd polar = VectorXd(3);
   float c1 = sqrt(pow(x[0], 2) + pow(x[1], 2));
-  if (c1 > 0) {
+  if (c1 > epsilon) {
     polar << c1, atan2(x[1], x[0]), (x[0]*x[2] + x[1]*x[3])/c1;
   }
   return polar;

@@ -35,6 +35,8 @@ public:
   */
   Eigen::VectorXd ConvertCartesianToPolar(const Eigen::VectorXd& x);
 
+  float epsilon = 0.0001;
+
 };
 
 #endif /* TOOLS_H_ */
